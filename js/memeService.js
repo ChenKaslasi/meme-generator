@@ -22,12 +22,6 @@ const gMemes = [
 ];
 
 
-let gMeme = {
-  id: 0,
-  selectedImgId: 1, selectedTxtIdx: 0,
-  txts: []
-}
-
 
 
 function findMemeById(memeId) {

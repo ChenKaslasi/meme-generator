@@ -40,11 +40,21 @@
   grid-column: 5/6;
 }
 
-.action-btns {
-  background-color: lightblue;
-
+.txt-input {
+  margin-bottom: 1rem;
+  border-radius: 1.8rem;
+  background-color: #bbc4d1;
 }
 
+.action-btns>* {
+  margin-bottom: 1rem;
+  
+}
+
+.text-btns {
+  margin-bottom: 1rem;
+  text-align: center;
+}
 
 .emoji-container {
   background-color: yellow;
@@ -55,10 +65,3 @@
 }
 
 
-
-
-.txt-input {
-  margin-bottom: 1rem;
-  border-radius: 1.8rem;
-  background-color: #bbc4d1;
-}

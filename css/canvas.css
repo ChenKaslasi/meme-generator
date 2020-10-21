@@ -1,0 +1,64 @@
+.canvas-container  {
+    padding: 2rem;
+}
+
+.canvas-container .canvas-content  {
+  width: 100%;
+  padding-inline-start: 2rem;
+  padding-inline-end: 2rem;
+  grid-template-rows: repeat(6,1fr);
+  grid-template-columns: repeat(5,1fr);
+}
+
+.canvas-container .canvas-content >*  {
+  border-radius: 10px;
+  box-shadow: 1px 6px 15px 1px #bbc4d1;
+  border: 2px solid #ffffff;
+}
+
+.canvas-content .controllers-container {
+  padding: 1.5rem;
+}
+
+.text-btns {
+  grid-template-rows: repeat(2,1fr);
+  grid-template-columns: repeat(5,1fr);
+}
+
+.font-famely {
+  grid-row : 2/3;
+  grid-column: 1/4;
+}
+
+.small {
+  grid-row : 2/3;
+  grid-column: 4/5;
+}
+
+.stroke-color {
+  grid-row : 2/3;
+  grid-column: 5/6;
+}
+
+.action-btns {
+  background-color: lightblue;
+
+}
+
+
+.emoji-container {
+  background-color: yellow;
+}
+
+.actions {
+  background-color: lightsalmon ;
+}
+
+
+
+
+.txt-input {
+  margin-bottom: 1rem;
+  border-radius: 1.8rem;
+  background-color: #bbc4d1;
+}

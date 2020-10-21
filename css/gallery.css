@@ -1,0 +1,71 @@
+
+.gallery-container {
+  border-radius: 10px;
+  background-color: #383b42;
+  padding: 2.5rem;
+  margin: 1rem;
+}
+
+
+/* search bar */
+
+.search-bar {
+  width: 100%;
+}
+
+.search-bar>*:not(:first-child) {
+  margin-left: 15px;
+}
+
+.search-bar input {
+  max-width: 541px;
+  height: 45px;
+  border-radius: 29px;
+  background-color: #22252c;
+  color: #6f7075;
+  padding-left: 50px;
+  font-size: 1.3125rem;
+  font-weight: 300;
+  flex: 1;
+}
+
+.keyWords {
+  max-width: 536px;
+  height: 50px;
+  box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 25px;
+  background-color: #87898d;
+  color: #fcfcfc;
+  font-weight: 30;
+  padding-left: 20px;
+  flex: 4;
+}
+
+
+.more {
+  height: 36px;
+  box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 18px;
+  background-color: #fefefe;
+  color: #fefefe;
+  background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+  font-size: 1.125rem;
+  font-weight: 300;
+  flex: 0.3;
+}
+
+
+/* gallery-content */
+
+.gallery-content {
+  grid-template-rows: repeat(5,1fr);
+  grid-template-columns: repeat(5,1fr);
+  grid-gap: 1rem;
+  margin-top: 50px;
+}
+
+
+.gallery-content .meme img {
+  border-radius: 5%;
+  cursor: pointer;
+}

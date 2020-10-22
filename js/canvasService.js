@@ -23,15 +23,22 @@ function storeNewText(newText) {
     fontFamely: "Impact",
     color: "white",
     stroke: "black",
+    align: "left",
     strokeSize: 4,
     startX: 160,
     startY: locateStartY(),
     endX: function() {
-      return this.startX + (this.txt.length * 18)
-    } ,
+      return this.startX + (this.txt.length * this.size / 2.2)
+    },
     endY: function() {
       return this.startY + (+this.size)
-    }
+    },
+    widthX: function() {
+      return this.endX() - this.startX
+    },
+    heightY: function() {
+      return this.endY() - this.startY
+    },
   }
 
   gMemeState.lines.push(newLine);
@@ -82,7 +89,7 @@ function drawText(newTextObject) {
   ctx.lineWidth = newTextObject.strokeSize;
   ctx.fillStyle = newTextObject.color
   ctx.strokeStyle = newTextObject.stroke
-  ctx.textAlign = 'left';
+  ctx.textAlign = newTextObject.align;
   ctx.textBaseline = "top"
   ctx.strokeText(newTextObject.txt, newTextObject.startX, newTextObject.startY);
   ctx.fillText(newTextObject.txt, newTextObject.startX, newTextObject.startY);
@@ -92,11 +99,12 @@ function drawText(newTextObject) {
 
 
 function drawRect(line) {
-  let { startX, startY, txt } = line
   ctx.beginPath();
-  ctx.rect(startX, startY, 20 * txt.length, 40);
+    ctx.rect(line.startX,line.startY,line.widthX(),line.heightY());
   ctx.stroke();
 }
+
+
 
 // -------------------------------------------------------------------------
 
@@ -161,11 +169,16 @@ function getLineToEdit() {
   var correctLine =  gMemeState.lines.filter(line => {
     return line.isOnEditMode === true
   })
-  return correctLine[0].id
+  if (correctLine.length !== 0) {
+    return correctLine[0].id
+  }
 }
 
 function setTextUp() {
-  var id = getLineToEdit(); 
+  var id = getLineToEdit();
+  if(id === undefined) {
+    return
+  } 
   gMemeState.lines[id].startY =  gMemeState.lines[id].startY - 10;
   gMemeState.lines[id].startY-- ;
   renderCanvas()
@@ -174,18 +187,116 @@ function setTextUp() {
 
 function setTextDown() {
   var id = getLineToEdit(); 
+  if(id === undefined) {
+    return
+  } 
   gMemeState.lines[id].startY =  gMemeState.lines[id].startY + 10;
   renderCanvas()
   drawRect(gMemeState.lines[id])
 }
 
 
+function setTextRight() {
+  var id = getLineToEdit(); 
+  if(id === undefined) {
+    return
+  } 
+  gMemeState.lines[id].startX =  gMemeState.lines[id].startX + 10;
+  renderCanvas()
+  drawRect(gMemeState.lines[id])
+}
+
+function setTextLeft() {
+  var id = getLineToEdit(); 
+  if(id === undefined) {
+    return
+  } 
+  gMemeState.lines[id].startX =  gMemeState.lines[id].startX - 10;
+  renderCanvas()
+  drawRect(gMemeState.lines[id])
+}
 
 
 function setDeleteLine() {
-  var id = getLineToEdit(); 
+  var id = getLineToEdit();
+  if(id === undefined) {
+    return
+  } 
   gMemeState.lines.splice(id)
   clearEditMode()
   renderCanvas()
 }
  
+function increaseText() {
+  var id = getLineToEdit();
+  if(id === undefined) {
+    return
+  } 
+  gMemeState.lines[id].size = (parseInt(gMemeState.lines[id].size) + 1).toString();
+  renderCanvas()
+  drawRect(gMemeState.lines[id])
+}
+
+function decreaseText() {
+  var id = getLineToEdit();
+  if(id === undefined) {
+    return
+  } 
+  gMemeState.lines[id].size = (parseInt(gMemeState.lines[id].size) - 1).toString();
+  renderCanvas()
+  drawRect(gMemeState.lines[id])
+}
+
+function AlignTextLeft()  {
+  var id = getLineToEdit();
+  if(id === undefined) {
+    return
+  } 
+  gMemeState.lines[id].align = 'left';
+  clearEditMode()
+  renderCanvas()
+}
+
+function AlignTextRight()  {
+  var id = getLineToEdit();
+  if(id === undefined) {
+    return
+  } 
+  gMemeState.lines[id].align = 'right';
+  renderCanvas()
+  clearEditMode()
+}
+
+
+
+function AlignTextCenter()  {
+  var id = getLineToEdit();
+  if(id === undefined) {
+    return
+  } 
+  gMemeState.lines[id].align = 'center';
+  renderCanvas()
+  clearEditMode()
+}
+
+
+function ChangeFont(fontName) {
+  var id = getLineToEdit();
+  if(id === undefined) {
+    return
+  } 
+  gMemeState.lines[id].fontFamely = fontName;
+  renderCanvas()
+  clearEditMode()
+}
+
+
+function changeColor(colorId) {
+  var id = getLineToEdit();
+  if(id === undefined) {
+    return
+  } 
+  gMemeState.lines[id].color = colorId;
+  renderCanvas()
+  clearEditMode()
+}

@@ -16,18 +16,42 @@ function onTextUp() {
 function onTextDown() {
   setTextDown()
 }
-
+function onTextRight() {
+  setTextRight()
+}
+function onTextLeft() {
+  setTextLeft()
+}
 
 function onSwitch() {
   setSwitchLines()
 }
 
-
 function onDeleteLine() {
   setDeleteLine()
 }
 
-
 function onIncreaseText() {
+  increaseText()
+}
+function onDecreaseText() {
+  decreaseText()
+}
 
+function onAlignLeft() {
+  AlignTextLeft() 
+}
+function onAlignRight() {
+  AlignTextRight() 
+}
+function onAlignCenter() {
+  AlignTextCenter()
+}
+
+function onChangeFont(el) {
+  ChangeFont(el.value)
+}
+
+function onColorChange(el) {
+  changeColor(el.value)
 }

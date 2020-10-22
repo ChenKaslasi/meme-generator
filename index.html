@@ -51,19 +51,21 @@
         <div class="controllers-container grid">
           <input type="text" class="txt-input" placeholder="please add text" id="text">
           <div class="action-btns flex align-center justify-space-between">
+            <button class="add-btn" onclick="onAddText()">Add</button>
+            <button class="delete-btn" onclick="onDeleteLine()">Delete</button>
             <button class="up-btn" onmousedown="onTextUp()">upText</button>
             <button class="down-btn" onclick="onTextDown()">downText</button>
-            <button class="add-btn" onclick="onAddText()">add</button>
-            <button class="delete-btn" onclick="onDeleteLine()">delete</button>
+            <button class="right-btn" onclick="onTextRight()">rightText</button>
+            <button class="left-btn" onclick="onTextLeft()">leftText</button>
           </div>
 
           <div class="text-btns grid">
-            <button class="increase">increase</button>
-            <button class="decrease">decrease</button>
-            <button class="text-align-left">align-left</button>
-            <button class="text-align-center">align-center</button>
-            <button class="text-align-right">align-right</button>
-            <input id="font-list" class="font-famely" list="font-famely" value="Impact">
+            <button class="increase" onclick="onIncreaseText()">increase</button>
+            <button class="decrease" onclick="onDecreaseText()">decrease</button>
+            <button class="text-align-left" onclick="onAlignLeft()">align-left</button>
+            <button class="text-align-center" onclick="onAlignCenter()">align-center</button>
+            <button class="text-align-right" onclick="onAlignRight()">align-right</button>
+            <input id="font-list" class="font-famely" list="font-famely" value="Impact" onchange="onChangeFont(this)">
             <datalist id="font-famely">
               <option value="Impact">
               <option value="Ariel">
@@ -71,7 +73,7 @@
             </datalist>
             <button class="small">small</button>
             <button><input type="color" id="head" name="head"
-              value="#e66465" hidden>color</button>
+              value="#e66465" onchange="onColorChange(this)"></button>
           </div>
 
           <div class="emoji-container flex justify-center align-center">emoji-container</div>

@@ -44,15 +44,17 @@
     <!-- canvas -->
     <section class="canvas-container" hidden>
       <div class="canvas-content flex justify-space-around">
-        <canvas id="my-canvas" width="500" height="500">
+        <canvas id="my-canvas" width="500" height="500" 
+        onmousemove="onMove(event)" ondragover="onDragOver(event)" onclick="onClickLine(event)"> 
           Update your browser to enjoy canvas!
         </canvas>
         <div class="controllers-container grid">
           <input type="text" class="txt-input" placeholder="please add text" id="text">
-          <div class="action-btns flex justify-space-between">
-            <button class="switch-btn">switch</button>
+          <div class="action-btns flex align-center justify-space-between">
+            <button class="up-btn" onmousedown="onTextUp()">upText</button>
+            <button class="down-btn" onclick="onTextDown()">downText</button>
             <button class="add-btn" onclick="onAddText()">add</button>
-            <button class="delete-btn">delete</button>
+            <button class="delete-btn" onclick="onDeleteLine()">delete</button>
           </div>
 
           <div class="text-btns grid">

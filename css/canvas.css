@@ -1,5 +1,6 @@
 .canvas-container  {
     padding: 2rem;
+    
 }
 
 .canvas-container .canvas-content  {
@@ -8,6 +9,7 @@
   padding-inline-end: 2rem;
   grid-template-rows: repeat(6,1fr);
   grid-template-columns: repeat(5,1fr);
+  flex-wrap: wrap;
 }
 
 .canvas-container .canvas-content >*  {
@@ -20,6 +22,55 @@
   padding: 1.5rem;
 }
 
+/* Action Buttons */
+
+.action-btns {
+  grid-template-areas: 
+  'add-btn delete-btn . up-btn .'
+  'add-btn delete-btn left-btn . right-btn'
+  'add-btn delete-btn . down-btn .';
+  margin-bottom: 1rem;
+  padding-inline-start: 2rem;
+  padding-inline-end: 2rem;
+}
+
+.action-btns >* { 
+  border-radius: 15%;
+  background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+}
+
+.add-btn {
+  grid-area: add-btn;
+  margin-inline-end: 1rem;
+  height: 60%;
+  width: 60%;
+  align-self: center;
+}
+
+.delete-btn {
+  grid-area: delete-btn;
+  margin-inline-end: 1rem;
+  height: 60%;
+  width: 60%;
+  align-self: center;
+}
+
+.up-btn {
+  grid-area: up-btn;
+}
+.down-btn {
+  grid-area: down-btn;
+}
+.right-btn {
+  grid-area: right-btn;
+}
+.left-btn {
+  grid-area: left-btn;
+}
+
+/* Text Buttons */
+
+
 .txt-input {
   margin-bottom: 1rem;
   border-radius: 1.8rem;
@@ -31,6 +82,20 @@
 .text-btns {
   grid-template-rows: repeat(2,1fr);
   grid-template-columns: repeat(5,1fr);
+  grid-gap: 0.75rem;
+  background-color: #19a59f;
+  padding: 1rem ;
+  border-radius: 5%;
+}
+
+.text-btns button{
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+}
+
+.text-btns img {
+  width: 60%;
 }
 
 .font-famely {
@@ -38,16 +103,10 @@
   grid-column: 1/4;
 }
 
-.small {
-  grid-row : 2/3;
-  grid-column: 4/5;
+.color-btn input {
+  cursor: pointer;
+  background-image: none;
 }
-
-.stroke-color {
-  grid-row : 2/3;
-  grid-column: 5/6;
-}
-
 
 .text-btns {
   margin-bottom: 1rem;
@@ -61,5 +120,3 @@
 .actions {
   background-color: lightsalmon ;
 }
-
-

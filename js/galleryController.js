@@ -31,3 +31,6 @@ function onSelectedMeme(imgID) {
   initCanvas(imgID)
 }
 
+function toggleNav() {
+  document.querySelector('.main-menu').classList.toggle('toggleNav')
+}

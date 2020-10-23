@@ -15,6 +15,10 @@ html {
   margin: 0;
 }
 
+body {
+  margin: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
   margin: 0;
@@ -28,6 +32,11 @@ p {
 a {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
+}
+
+i {
+  color : #ffffff
 }
 
 img{
@@ -49,22 +58,18 @@ button {
   outline: none;
   }
 
-body {
-  margin: 1rem;
-}
 
 /* Header */
 
+
 .main-header {
-  height: 73px;
-  border-radius: 90px;
-  padding-left: 81px;
-  padding-right: 100px;
+  height: 4.5rem;
+  padding-inline-start: 3rem;
+  padding-inline-end: 3rem;
   background-color: #5970c1;
   background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
   color: #ffffff;
   font-family: Poppins;
-  margin-bottom: 1rem;
 }
 
 .main-logo {
@@ -73,23 +78,97 @@ body {
   text-transform: uppercase;
 }
 
-.main-menu {
-  font-size: 1.3125rem;
-  font-weight: 500;
+.main-menu { 
+  display: flex;
+  flex-direction: column;
+  padding-block-start: 5rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #4e4e4e;
+  left: 0;
+  transform: translateY(-100%);
+  transition: 0.8s;
+}
+
+.main-menu .close-nav {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding-inline-end: 3rem;
+  font-size: 3rem;
 }
 
 .main-menu li {
-  margin-left: 40px;
+  font-size: 2.5rem;
+  color: #ffffff;
+  border-bottom: 1px solid gray;
 }
 
-.active {
-  width: 116px;
-  height: 40px;
-  box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
-  border-radius: 20px;
-  background-color: #fefefe;
-  color: #21ac91;
-  display: flex;
-  justify-items: center;
-  justify-content: center;
+
+.hamburger-icon { 
+  display: block;
+}
+
+.toggleNav {
+  transform: translateY(0);
+}
+
+
+@media (min-width:740px) {
+  body {
+    margin: 1rem;
+  }
+  
+  .main-header {
+    width: 100%;
+    border-radius: 90px;
+    padding-inline-start: 4rem;
+    padding-inline-end: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  .hamburger-icon { 
+    display: none;
+  }
+
+  .main-menu {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(0);
+    transition: none;
+    font-size: 1.3125rem;
+    font-weight: 500;
+    background-color: inherit;
+    padding-block-start: 0;
+    
+  }
+
+  .main-menu .close-nav {
+    display: none;
+  }
+  
+  .main-menu li {
+    font-size: 1.3125rem;
+    margin-inline-start: 2.5rem;
+    border-bottom: none
+  }
+  
+  .active {
+    width: 116px;
+    height: 40px;
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    background-color: #fefefe;
+    color: #21ac91;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+  }
+  
 }

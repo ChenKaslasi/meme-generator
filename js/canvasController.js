@@ -1,5 +1,8 @@
 'use strict';
 
+
+
+
 function onAddText() {
   let newText = document.querySelector('.txt-input').value
   document.querySelector('.txt-input').value = ''
@@ -7,7 +10,6 @@ function onAddText() {
   drawText(newTextObj);
   renderCanvas()
 }
-
 
 function onTextUp() {
   setTextUp()

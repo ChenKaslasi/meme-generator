@@ -1,7 +1,7 @@
 'use strict';
+const deskCanvasSize = 500;
+const mobileCanvaSize = 350;
 
-const canvasX = 500
-const canvasY = 500
 
 let gCanvas;
 let ctx;
@@ -58,28 +58,51 @@ function getLastLine() {
   return gMemeState.lines.length
 }
 
-// -----------------------------------------------------
+// -------------------------------------------------------------------------
 
 
 async function initCanvas(memeId) {
   let elMeme = document.querySelector(`#meme_${memeId}`);
-  gMemeState.selectedImgElement = elMeme
+  gMemeState.selectedImgElement = elMeme;
   gCanvas = document.querySelector('#my-canvas');
   ctx = gCanvas.getContext('2d');
-  await ctx.drawImage(elMeme, 0, 0, canvasX, canvasY)
+  let canvasSizes = resizeCanvas();
+  await ctx.drawImage(elMeme, 0, 0, canvasSizes, canvasSizes);
+  onScreenResize()
 }
 
 
 async function renderCanvas() {
-  // clearEditMode()
   gCanvas = document.querySelector('#my-canvas');
   ctx = gCanvas.getContext('2d');
-  await ctx.drawImage(gMemeState.selectedImgElement, 0, 0, canvasX, canvasY);
+  let canvasSizes = resizeCanvas();
+  await ctx.drawImage(gMemeState.selectedImgElement, 0, 0, canvasSizes, canvasSizes);
   if (!gMemeState.lines) return
   gMemeState.lines.forEach(line => {
     drawText(line)
   })
 }
+
+function resizeCanvas() {
+  if(window.innerHeight < 740) {
+    gCanvas.width = window.innerHeight - 250
+    gCanvas.height = window.innerHeight - 250;
+    return window.innerHeight - 250
+  }
+  else {
+    gCanvas.width = deskCanvasSize
+    gCanvas.height = deskCanvasSize;
+    return deskCanvasSize
+  }
+}
+
+
+function onScreenResize() {
+  window.addEventListener('resize', renderCanvas, false);
+  window.addEventListener('orientationchange', renderCanvas, false);
+}
+
+
 
 // -------------------------------------------------------------------------
 
@@ -300,3 +323,4 @@ function changeColor(colorId) {
   renderCanvas()
   clearEditMode()
 }
+

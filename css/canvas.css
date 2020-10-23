@@ -1,14 +1,9 @@
 .canvas-container  {
-    padding: 2rem;
-    
+    padding: 0;
+    /* margin-top: 1rem; */
 }
 
 .canvas-container .canvas-content  {
-  width: 100%;
-  padding-inline-start: 2rem;
-  padding-inline-end: 2rem;
-  grid-template-rows: repeat(6,1fr);
-  grid-template-columns: repeat(5,1fr);
   flex-wrap: wrap;
 }
 
@@ -119,4 +114,20 @@
 
 .actions {
   background-color: lightsalmon ;
+}
+
+
+@media (min-width:740px) {
+  .canvas-container  {
+    padding: 2rem;
+  }
+
+  .canvas-container .canvas-content  {
+    width: 100%;
+    padding-inline-start: 2rem;
+    padding-inline-end: 2rem;
+    grid-template-rows: repeat(6,1fr);
+    grid-template-columns: repeat(5,1fr);
+    flex-wrap: wrap;
+  }
 }

@@ -84,10 +84,10 @@ async function renderCanvas() {
 }
 
 function resizeCanvas() {
-  if(window.innerHeight < 740) {
-    gCanvas.width = window.innerHeight - 250
-    gCanvas.height = window.innerHeight - 250;
-    return window.innerHeight - 250
+  if(window.innerWidth < 740) {
+    gCanvas.width = mobileCanvaSize
+    gCanvas.height = mobileCanvaSize
+    return mobileCanvaSize
   }
   else {
     gCanvas.width = deskCanvasSize

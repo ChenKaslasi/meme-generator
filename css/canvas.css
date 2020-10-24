@@ -1,3 +1,13 @@
+@media (max-width:400px) {
+  #my-canvas {
+    max-width: 350px;
+    height: 250px;
+    align-self: center;
+  }  
+  .canvas-content .controllers-container {
+    flex-shrink: 1;  }
+}
+
 .canvas-container  {
     padding: 0;
     margin-top: 1rem;

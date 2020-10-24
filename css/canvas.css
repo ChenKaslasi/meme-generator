@@ -130,6 +130,14 @@
   padding: 1rem;
 }
 
+.canvas-download {
+  background-color: rgb(55, 55, 156) !important; 
+  border-radius: 5%;
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
 
 @media (min-width:1050px) {
 

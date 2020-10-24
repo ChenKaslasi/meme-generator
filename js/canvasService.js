@@ -143,39 +143,31 @@ function drawRect(line) {
 
 
 function onMove(event) {
-  gMemeState.lines.map((line) => {
+  getHoverCursor(event)
+  if(gMemeState.lines.length !== 0) {
+    let line =  gMemeState.lines[gMemeState.selectedLine];
     if (line.isOnDragMode === true && gPrevEvent.offsetX) {
-      line.startX += getDiff(gPrevEvent.offsetX, event.offsetX);
-      line.startY = line.startY + getDiff(gPrevEvent.offsetY, event.offsetY)
-      renderCanvas()
+      moveText(event,line)
     }
-    setPreviousEvent(event)
-  })
-  if (!getLineOnHover(event)) {
-    gCanvas.style.cursor = 'initial';
-    return
-  }
-  else {
-    gCanvas.style.cursor = 'pointer';
   }
 }
 
 
+function getHoverCursor(event) {
+  if (!getLineOnHover(event)) {
+    gCanvas.style.cursor = 'initial';
+  } else {
+    gCanvas.style.cursor = 'pointer';
+  }
+}
+
 function onClickLine(event) {
   renderCanvas()
-  clearEditMode()
-  if (!getLineOnHover(event)) {
-    return;
-  }
-  else {
-    var line = getLineOnHover(event);
+  clearEditMode();
+  if(getLineOnHover(event) === 1) {
+    let line =  gMemeState.lines[gMemeState.selectedLine];
     drawRect(line);
-    let { id } = line;
-    gMemeState.lines.map((line) => {
-      if (line.id === id) {
-        line.isOnEditMode = true
-      }
-    })
+    line.isOnEditMode = true
   }
 }
 
@@ -184,13 +176,8 @@ function onMouseDown(ev) {
   if (!getLineOnHover(ev)) {
     return;
   }
-  var line = getLineOnHover(ev);
-  let { id } = line;
-  gMemeState.lines.forEach((line) => {
-    if (line.id === id) {
-      line.isOnDragMode = true;
-    }
-  })
+  gMemeState.lines[gMemeState.selectedLine].isOnDragMode = true;
+  setPreviousEvent(ev)
 }
 
 function onMouseUp() {
@@ -202,9 +189,15 @@ function onMouseUp() {
 
 // -------------------------------------------------------------------------
 
+function moveText(event,line) {
+  line.startX += getDiff(gPrevEvent.offsetX, event.offsetX);
+  line.startY = line.startY + getDiff(gPrevEvent.offsetY, event.offsetY)
+  renderCanvas()
+  setPreviousEvent(event)
+}
+
 
 function setPreviousEvent(event) {
-  
   if (!event) {
     gPrevEvent.offsetX = null
     gPrevEvent.offsetY = null
@@ -222,10 +215,12 @@ function getLineOnHover(event) {
     var endY = line.endY();
     if (event.offsetX > line.startX && event.offsetX < endX
       && event.offsetY > line.startY && event.offsetY < endY) {
-      return line
+      gMemeState.selectedLine = i
+      return 1
     }
   }
 }
+
 
 function clearEditMode() {
   gMemeState.lines.map(line => {
@@ -234,142 +229,119 @@ function clearEditMode() {
 }
 
 
-function getLineToEdit() {
-  var correctLine = gMemeState.lines.filter(line => {
-    return line.isOnEditMode === true
-  })
-  if (correctLine.length !== 0) {
-    return correctLine[0].id
-  }
-}
-
-
 function setTextUp() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+    line.startY = line.startY - 10;
+    line.startY--;
+    renderCanvas()
+    drawRect(line)
   }
-  gMemeState.lines[id].startY = gMemeState.lines[id].startY - 10;
-  gMemeState.lines[id].startY--;
-  renderCanvas()
-  drawRect(gMemeState.lines[id])
 }
 
 function setTextDown() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].startY = gMemeState.lines[id].startY + 10;
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.startY = line.startY + 10;
   renderCanvas()
-  drawRect(gMemeState.lines[id])
+  drawRect(line)
+  }
 }
 
 
 function setTextRight() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].startX = gMemeState.lines[id].startX + 10;
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.startX = line.startX + 10;
   renderCanvas()
-  drawRect(gMemeState.lines[id])
+  drawRect(line)
+  }
 }
 
 function setTextLeft() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].startX = gMemeState.lines[id].startX - 10;
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.startX = line.startX - 10;
   renderCanvas()
-  drawRect(gMemeState.lines[id])
+  drawRect(line)
+  }
 }
 
-
 function setDeleteLine() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines.splice(id, 1);
+  if(gMemeState.lines.length === 0) return
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  gMemeState.lines.splice(line.id, 1);
   gMemeState.lines.forEach((line, index) => line.id = index)
   clearEditMode()
   renderCanvas()
+  }
 }
 
 function increaseText() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].size = (parseInt(gMemeState.lines[id].size) + 1).toString();
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.size = (parseInt(line.size) + 1).toString();
   renderCanvas()
-  drawRect(gMemeState.lines[id])
+  drawRect(line)
+  }
 }
 
 function decreaseText() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].size = (parseInt(gMemeState.lines[id].size) - 1).toString();
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.size = (parseInt(line.size) - 1).toString();
   renderCanvas()
-  drawRect(gMemeState.lines[id])
+  drawRect(line)
+  }
 }
 
 function AlignTextLeft() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].startX = gMemeState.lines[id].startX - gMemeState.lines[id].widthX()
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.startX = line.startX - line.widthX()
   renderCanvas()
   clearEditMode()
+  }
 }
 
 function AlignTextRight() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].startX = gMemeState.lines[id].endX()
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.startX = line.endX()
   renderCanvas()
   clearEditMode()
+  }
 }
 
 
-
 function AlignTextCenter() {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].startX = gMemeState.lines[id].widthX() / 2
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.startX = line.widthX() / 2
   renderCanvas()
   clearEditMode()
+  }
 }
 
 
 function ChangeFont(fontName) {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].fontFamely = fontName;
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.fontFamely = fontName;
   renderCanvas()
   clearEditMode()
+  }
 }
 
 
 function changeColor(colorId) {
-  var id = getLineToEdit();
-  if (id === undefined) {
-    return
-  }
-  gMemeState.lines[id].color = colorId;
+  let line =  gMemeState.lines[gMemeState.selectedLine]
+  if(line.isOnEditMode) {
+  line.color = colorId;
   renderCanvas()
   clearEditMode()
+  }
 }
 
 

@@ -35,9 +35,10 @@
     <section class="gallery-container">
       <!-- search bar -->
       <div class="search-bar flex justify-space-between align-center">
-        <input id="search" class="flex-grow" type="text" placeholder="search" onkeyup="onSearch()">
-        <div class="keyWords flex-grow flex justify-flex-start align-center">funny,cat,dog</div>
-        <button class="more">More</button>
+        <input id="search" class="flex-grow" type="text" placeholder="search" onkeyup="onSearch(this)">
+        <div class="keyWords flex-grow flex justify-flex-start align-center">
+        </div>
+        <button class="more" onclick="onMoreClick()">More</button>
       </div>
 
       <!-- gallery -->
@@ -49,13 +50,12 @@
     <!-- canvas -->
     <section class="canvas-container" hidden>
       <div class="canvas-content flex justify-space-around">
-        <canvas id="my-canvas" width="500" height="500" onmousemove="onMove(event)" ondragover="onDragOver(event)"
-          onclick="onClickLine(event)">
+        <canvas id="my-canvas" width="500" height="500" onmousemove="onMove(event)" onmousedown="onMouseDown(event)" onmouseup="onMouseUp()" onclick="onClickLine(event)">
           Update your browser to enjoy canvas!
         </canvas>
         <div class="controllers-container grid">
           <span class="tooltiptext">Click the plus button to add new line </span>
-          <input onchange="onAddText()" type="text" class="txt-input" placeholder="please add text" id="text">
+          <input type="text" class="txt-input" placeholder="please add text" id="text">
           <div class="action-btns grid">
             <button class="add-btn" onclick="onAddText()"><img src="icons/add.svg"></button>
             <button class="delete-btn" onclick="onDeleteLine()"><img src="icons/delete.svg"></button>
@@ -71,27 +71,18 @@
             <button class="text-align-left" onclick="onAlignLeft()"><img src="icons/align-left.svg"></button>
             <button class="text-align-center" onclick="onAlignCenter()"><img src="icons/align-center.svg" ></button>
             <button class="text-align-right" onclick="onAlignRight()"><img src="icons/align-right.svg"></button>
-            <input id="font-list" class="font-famely" list="font-famely" value="Impact" onchange="onChangeFont(this)">
-            <datalist id="font-famely">
-              <option value="Impact">
-              <option value="Ariel">
-              <option value="Helvetica">
-            </datalist>
+            <select onchange="onChangeFont(this)" class="font-famely">
+              <option value="Impact">Impact</option>
+              <option value="Ariel">Ariel</option>
+              <option value="Helvetica">Helvetica</option>
+            </select>
             <button class="underline-btn"><img src="icons/underline.svg"></button>
-            <button class="color-btn"><input type="color" value="none" onchange="onColorChange(this)" ></button>
+            <button class="color-btn"><input type="color" onchange="onColorChange(this)" ></button>
           </div>
 
-          <div class="emoji-container flex justify-center align-center">emoji-container</div>
-
+          <!-- <div class="emoji-container flex justify-center align-center">emoji-container</div> -->
           <div class="actions flex justify-space-around align-center">
-            <form class="share " action="" method="POST" enctype="multipart/form-data"
-              onsubmit="uploadImg(this, event)">
-              <input name="img" id="imgData" type="hidden" />
-              <a class="publish" type="submit" onclick="onPublish(event)">Publish</a>
-              <div class="share-container"></div>
-            </form>
-            <a class="share" href="#" onclick="onShare(this)">Share</a>
-            <a class="download" href="#" onclick="onDownload(this)" download="">Download</a>
+            <a href="" download="canvas-image.png" class="canvas-download" onclick="onDownloadCanvas()">Download</a>
           </div>
         </div>
       </div>
@@ -101,7 +92,6 @@
 
 
   <script src="js/utils.js"></script>
-  <script src="js/memeService.js"></script>
   <script src="js/galleryService.js"></script>
   <script src="js/galleryController.js"></script>
   <script src="js/canvasService.js"></script>

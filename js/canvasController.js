@@ -2,13 +2,12 @@
 
 
 
-
 function onAddText() {
   let newText = document.querySelector('.txt-input').value
   document.querySelector('.txt-input').value = ''
   let newTextObj = storeNewText(newText);
   drawText(newTextObj);
-  renderCanvas()
+  renderCanvas();
 }
 
 function onTextUp() {
@@ -56,4 +55,8 @@ function onChangeFont(el) {
 
 function onColorChange(el) {
   changeColor(el.value)
+}
+
+function onDownloadCanvas() {
+  downloadCanvas()
 }

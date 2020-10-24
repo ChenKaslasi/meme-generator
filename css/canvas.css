@@ -39,7 +39,6 @@
   'add-btn delete-btn . up-btn .'
   'add-btn delete-btn left-btn . right-btn'
   'add-btn delete-btn . down-btn .';
-  margin-bottom: 1rem;
   padding-inline-start: 2rem;
   padding-inline-end: 2rem;
 }
@@ -123,16 +122,12 @@
 }
 
 .text-btns {
-  margin-bottom: 1rem;
   text-align: center;
 }
 
-.emoji-container {
-  background-color: yellow;
-}
-
-.actions {
-  background-color: lightsalmon ;
+.actions a{
+  background-color: #fff;
+  padding: 1rem;
 }
 
 
@@ -149,7 +144,6 @@
 .canvas-content .controllers-container {
   flex: none;
   margin-top: 0;
-  height: 100%;
   margin-inline-start: 3rem;
   }
 

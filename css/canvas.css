@@ -1,24 +1,14 @@
-@media (max-width:400px) {
-  #my-canvas {
-    max-width: 350px;
-    height: 250px;
-    align-self: center;
-  }  
-  .canvas-content .controllers-container {
-    flex-shrink: 1;  }
+.canvas-container {
+  padding: 0;
+  margin-top: 1rem;
+  justify-content: center;
 }
 
-.canvas-container  {
-    padding: 0;
-    margin-top: 1rem;
-    justify-content: center;
-  }
-  
-  .canvas-container .canvas-content  {
-    flex-direction: column;
+.canvas-container .canvas-content {
+  flex-direction: column;
 }
 
-.canvas-container .canvas-content >*  {
+.canvas-container .canvas-content>* {
   border-radius: 10px;
   box-shadow: 1px 6px 15px 1px #bbc4d1;
   border: 2px solid #ffffff;
@@ -40,59 +30,64 @@
   border-radius: 15px;
   border: 1px solid white;
   margin-bottom: 0.5rem;
-  opacity: 0.8; 
+  opacity: 0.8;
 }
-
 
 .action-btns {
   grid-template-areas: 
-  'add-btn delete-btn . up-btn .'
-  'add-btn delete-btn left-btn . right-btn'
-  'add-btn delete-btn . down-btn .';
-  padding-inline-start: 2rem;
-  padding-inline-end: 2rem;
+  'add-btn . . up-btn .'
+  'switch-btn . left-btn . right-btn'
+  'delete-btn . . down-btn .';
+  
+
+  margin-bottom: 1rem;
+  min-height: 100px;
+  row-gap: 0.5rem;
 }
 
-.action-btns >* { 
-  border-radius: 15%;
+.action-btns>* {
+  border-radius: 10%;
   background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+  font-size: 32px;
 }
 
-.action-btns img { 
+.action-btns img {
   max-height: 100%;
 }
 
-.add-btn {
+.action-btns .add-btn {
   grid-area: add-btn;
   margin-inline-end: 1rem;
-  height: 60%;
-  width: 60%;
-  align-self: center;
 }
 
-.delete-btn {
+
+.action-btns .switch-btn {
+  grid-area: switch-btn;
+  margin-inline-end: 1rem;
+}
+
+.action-btns .delete-btn {
   grid-area: delete-btn;
   margin-inline-end: 1rem;
-  height: 60%;
-  width: 60%;
-  align-self: center;
 }
 
-.up-btn {
+.action-btns .up-btn {
   grid-area: up-btn;
 }
-.down-btn {
+
+.action-btns .down-btn {
   grid-area: down-btn;
 }
-.right-btn {
+
+.action-btns .right-btn {
   grid-area: right-btn;
 }
-.left-btn {
+
+.action-btns .left-btn {
   grid-area: left-btn;
 }
 
 /* Text Buttons */
-
 
 .txt-input {
   border-radius: 1.8rem;
@@ -103,15 +98,15 @@
 }
 
 .text-btns {
-  grid-template-rows: repeat(2,1fr);
-  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 0.75rem;
   background-color: #19a59f;
-  padding: 1rem ;
+  padding: 1rem;
   border-radius: 5%;
 }
 
-.text-btns button{
+.text-btns button {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
@@ -122,7 +117,7 @@
 }
 
 .font-famely {
-  grid-row : 2/3;
+  grid-row: 2/3;
   grid-column: 1/4;
 }
 
@@ -135,61 +130,33 @@
   text-align: center;
 }
 
-.actions a{
+.actions a {
   background-color: #fff;
   padding: 1rem;
 }
 
 .canvas-download {
-  background-color: rgb(55, 55, 156) !important; 
+  background-color: rgb(55, 55, 156) !important;
   border-radius: 5%;
   color: white;
   padding: 1rem 2rem;
   text-align: center;
 }
 
-
 @media (min-width:1050px) {
-
-  .canvas-container .canvas-content  {
+  .canvas-container .canvas-content {
     flex-direction: row;
     padding-inline-start: 2rem;
     padding-inline-end: 2rem;
-    grid-template-rows: repeat(6,1fr);
-    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
-  
-.canvas-content .controllers-container {
-  flex: none;
-  margin-top: 0;
-  margin-inline-start: 3rem;
+  .canvas-content .controllers-container {
+    flex: none;
+    margin-top: 0;
+    margin-inline-start: 3rem;
   }
-
   .txt-input {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
-
-  /* Action Buttons */
-  
-
-.action-btns {
-  margin-bottom: 0rem;
-}
-
-.add-btn {
-  grid-area: add-btn;
-  margin-inline-end: 1rem;
-  height: 60%;
-  width: 60%;
-  align-self: center;
-}
-
-.delete-btn {
-  grid-area: delete-btn;
-  margin-inline-end: 1rem;
-  height: 60%;
-  width: 60%;
-  align-self: center;
-  }
-
 }

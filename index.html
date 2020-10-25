@@ -54,17 +54,17 @@
           Update your browser to enjoy canvas!
         </canvas>
         <div class="controllers-container grid">
-          <span class="tooltiptext">Click the plus button to add new line </span>
-          <input type="text" class="txt-input" placeholder="please add text" id="text">
+          <input type="text" class="txt-input" placeholder="please add text" 
+          oninput="onTextChange(this.value)">
           <div class="action-btns grid">
-            <button class="add-btn" onclick="onAddText()"><img src="icons/add.svg"></button>
-            <button class="delete-btn" onclick="onDeleteLine()"><img src="icons/delete.svg"></button>
+            <button class="add-btn" onclick="onAddLine()"><i class="fa fa-plus"></i></button>
+            <button class="switch-btn" onclick="onSwitch()"><i class="fa fa-exchange"></i></button>
+            <button class="delete-btn" onclick="onDeleteLine()"><i class="fa fa-trash"></i></button>
             <button class="up-btn" onmousedown="onTextUp()"><i class="fa fa-arrow-up" ></i></button>
             <button class="down-btn" onclick="onTextDown()"><i class="fa fa-arrow-down"></i></button>
             <button class="right-btn" onclick="onTextRight()"><i class="fa fa-arrow-right"></i></button>
             <button class="left-btn" onclick="onTextLeft()"><i class="fa fa-arrow-left"></i></button>
           </div>
-          <span class="tooltiptext">Click the line to edit </span>
           <div class="text-btns grid">
             <button class="increase" onclick="onIncreaseText()"><img src="icons/txt-increase.svg"></button>
             <button class="decrease" onclick="onDecreaseText()"><img src="icons/txt-decrease.svg"></button>

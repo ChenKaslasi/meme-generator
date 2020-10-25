@@ -14,14 +14,14 @@ let gMemeState = {
   lines: []
 };
 
-// -------------------------------------------------------
+// -------------------------------------------------------------------------
 
-function storeNewText(newText) {
+function addNewLine() {
   var newLine = {
     id: getLastLine(),
-    isOnEditMode: false,
+    isOnEditMode: true,
     isOnDragMode: false,
-    txt: newText,
+    txt: 'Add text',
     size: '40',
     fontFamely: "Impact",
     color: "white",
@@ -29,7 +29,7 @@ function storeNewText(newText) {
     align: "left",
     strokeSize: 4,
     startX: 160,
-    startY: locateStartY(),
+    startY: 250,
     endX: function () {
       return this.startX + (this.txt.length * this.size / 2.2)
     },
@@ -49,16 +49,13 @@ function storeNewText(newText) {
 }
 
 
-
-function locateStartY() {
-  let lineCount = gMemeState.lines.length
-  return (lineCount < 1) ? 100 : (lineCount === 1) ? 400 : 250;
+function getLastLine() {
+  return gMemeState.lines.length
 }
 
 
-
-function getLastLine() {
-  return gMemeState.lines.length
+function checkEmptyLines() {
+  if (gMemeState.lines.length === 0) addNewLine()
 }
 
 // -------------------------------------------------------------------------
@@ -71,6 +68,7 @@ async function initCanvas(memeId) {
   ctx = gCanvas.getContext('2d');
   let { width, height } = resizeCanvas();
   await ctx.drawImage(elMeme, 0, 0, width, height);
+  addNewLine()
   onScreenResize()
 }
 
@@ -144,11 +142,10 @@ function drawRect(line) {
 
 function onMove(event) {
   getHoverCursor(event)
-  if(gMemeState.lines.length !== 0) {
-    let line =  gMemeState.lines[gMemeState.selectedLine];
-    if (line.isOnDragMode === true && gPrevEvent.offsetX) {
-      moveText(event,line)
-    }
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine];
+  if (line.isOnDragMode === true && gPrevEvent.offsetX) {
+    moveText(event, line)
   }
 }
 
@@ -162,10 +159,13 @@ function getHoverCursor(event) {
 }
 
 function onClickLine(event) {
+  let eltxtInput = document.querySelector('.txt-input')
   renderCanvas()
   clearEditMode();
-  if(getLineOnHover(event) === 1) {
-    let line =  gMemeState.lines[gMemeState.selectedLine];
+  eltxtInput.value = '';
+  if (getLineOnHover(event) === 1) {
+    let line = gMemeState.lines[gMemeState.selectedLine];
+    eltxtInput.value = line.txt
     drawRect(line);
     line.isOnEditMode = true
   }
@@ -176,7 +176,8 @@ function onMouseDown(ev) {
   if (!getLineOnHover(ev)) {
     return;
   }
-  gMemeState.lines[gMemeState.selectedLine].isOnDragMode = true;
+  let line = gMemeState.lines[gMemeState.selectedLine];
+  line.isOnDragMode = true;
   setPreviousEvent(ev)
 }
 
@@ -189,7 +190,7 @@ function onMouseUp() {
 
 // -------------------------------------------------------------------------
 
-function moveText(event,line) {
+function moveText(event, line) {
   line.startX += getDiff(gPrevEvent.offsetX, event.offsetX);
   line.startY = line.startY + getDiff(gPrevEvent.offsetY, event.offsetY)
   renderCanvas()
@@ -228,119 +229,143 @@ function clearEditMode() {
   })
 }
 
+// -------------------------------------------------------------------------
+
+
+function storeNewText(str) {
+  if (!str) return
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  line.txt = str
+}
+
+function addText() {
+  clearEditMode()
+  addNewLine()
+}
+
+function setSwitchLines() {
+  if(gMemeState.lines.length <= 1) return
+  gMemeState.selectedLine++ ;
+  if(gMemeState.selectedLine >= gMemeState.lines.length) {
+    gMemeState.selectedLine = 0;
+    renderCanvas();
+    drawRect(gMemeState.lines[gMemeState.selectedLine])
+  } else {
+    renderCanvas();
+    drawRect(gMemeState.lines[gMemeState.selectedLine ])
+    }
+  }
 
 function setTextUp() {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
     line.startY = line.startY - 10;
     line.startY--;
-    renderCanvas()
     drawRect(line)
   }
 }
 
 function setTextDown() {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.startY = line.startY + 10;
-  renderCanvas()
-  drawRect(line)
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    line.startY = line.startY + 10;
+    drawRect(line)
   }
 }
 
 
 function setTextRight() {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.startX = line.startX + 10;
-  renderCanvas()
-  drawRect(line)
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    line.startX = line.startX + 10;
+    drawRect(line)
   }
 }
 
 function setTextLeft() {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.startX = line.startX - 10;
-  renderCanvas()
-  drawRect(line)
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    line.startX = line.startX - 10;
+    drawRect(line)
   }
 }
 
 function setDeleteLine() {
-  if(gMemeState.lines.length === 0) return
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  gMemeState.lines.splice(line.id, 1);
-  gMemeState.lines.forEach((line, index) => line.id = index)
-  clearEditMode()
-  renderCanvas()
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    gMemeState.lines.splice(line.id, 1);
+    gMemeState.lines.forEach((line, index) => line.id = index)
+    gMemeState.selectedLine = 0;
+    clearEditMode()
   }
 }
 
 function increaseText() {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.size = (parseInt(line.size) + 1).toString();
-  renderCanvas()
-  drawRect(line)
-  }
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  // if (line.isOnEditMode) {
+    line.size = (parseInt(line.size) + 1).toString();
+    drawRect(line)
+  // }
 }
 
 function decreaseText() {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.size = (parseInt(line.size) - 1).toString();
-  renderCanvas()
-  drawRect(line)
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    line.size = (parseInt(line.size) - 1).toString();
+    drawRect(line)
   }
 }
 
 function AlignTextLeft() {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.startX = line.startX - line.widthX()
-  renderCanvas()
-  clearEditMode()
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    line.startX = line.startX - line.widthX()
   }
 }
 
 function AlignTextRight() {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.startX = line.endX()
-  renderCanvas()
-  clearEditMode()
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    line.startX = line.endX()
   }
 }
 
 
 function AlignTextCenter() {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.startX = line.widthX() / 2
-  renderCanvas()
-  clearEditMode()
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    line.startX = line.widthX() / 2
   }
 }
 
 
 function ChangeFont(fontName) {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.fontFamely = fontName;
-  renderCanvas()
-  clearEditMode()
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    line.fontFamely = fontName;
+    clearEditMode()
   }
 }
 
 
 function changeColor(colorId) {
-  let line =  gMemeState.lines[gMemeState.selectedLine]
-  if(line.isOnEditMode) {
-  line.color = colorId;
-  renderCanvas()
-  clearEditMode()
+  checkEmptyLines()
+  let line = gMemeState.lines[gMemeState.selectedLine]
+  if (line.isOnEditMode) {
+    line.color = colorId;
+    clearEditMode()
   }
 }
 
@@ -350,4 +375,3 @@ function downloadCanvas() {
   var data = gCanvas.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
   download.href = data;
 }
-

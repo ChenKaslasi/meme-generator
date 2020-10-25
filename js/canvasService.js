@@ -139,6 +139,14 @@ function drawRect(line) {
 // -------------------------------------------------------------------------
 
 
+function getHoverCursor(event) {
+  if (!getLineOnHover(event)) {
+    gCanvas.style.cursor = 'initial';
+  } else {
+    gCanvas.style.cursor = 'pointer';
+  }
+}
+
 
 function onMove(event) {
   getHoverCursor(event)
@@ -149,14 +157,6 @@ function onMove(event) {
   }
 }
 
-
-function getHoverCursor(event) {
-  if (!getLineOnHover(event)) {
-    gCanvas.style.cursor = 'initial';
-  } else {
-    gCanvas.style.cursor = 'pointer';
-  }
-}
 
 function onClickLine(event) {
   let eltxtInput = document.querySelector('.txt-input')

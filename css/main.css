@@ -12,6 +12,7 @@
 html {
   font-family:Poppins ;
   background-color: #22252c;
+  scroll-behavior: smooth;
   margin: 0;
 }
 
@@ -156,10 +157,13 @@ button {
   .main-menu li {
     font-size: 1.3125rem;
     margin-inline-start: 2.5rem;
-    border-bottom: none
+    border-bottom: none;
+    width: 116px;
+    height: 40px;
   }
   
-  .active {
+  
+  .main-menu li:hover {
     width: 116px;
     height: 40px;
     box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);

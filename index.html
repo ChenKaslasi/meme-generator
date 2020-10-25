@@ -35,7 +35,10 @@
     <section class="gallery-container">
       <!-- search bar -->
       <div class="search-bar flex justify-space-between align-center">
-        <input id="search" class="flex-grow" type="text" placeholder="search" onkeyup="onSearch(this)">
+        <div class="search-wrapper">
+          <input id="search" class="flex-grow" type="text" placeholder="search" onkeyup="onSearch(this)">
+          <span class="search-btn"><img src="images/search-btn.svg" alt=""></span>
+        </div>
         <div class="keyWords flex-grow flex justify-flex-start align-center">
         </div>
         <button class="more" onclick="onMoreClick()">More</button>
@@ -77,10 +80,9 @@
               <option value="Helvetica">Helvetica</option>
             </select>
             <button class="underline-btn"><img src="icons/underline.svg"></button>
-            <button class="color-btn"><input type="color" onchange="onColorChange(this)" ></button>
+            <button class="color-btn"><input type="color" onchange="onColorChange(this)"></button>
           </div>
 
-          <!-- <div class="emoji-container flex justify-center align-center">emoji-container</div> -->
           <div class="actions flex justify-space-around align-center">
             <a href="" download="canvas-image.png" class="canvas-download" onclick="onDownloadCanvas()">Download</a>
           </div>
